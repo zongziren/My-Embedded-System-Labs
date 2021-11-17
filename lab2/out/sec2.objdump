@@ -1,0 +1,17 @@
+
+2.o:     file format elf32-little
+
+Contents of section .text:
+ 0000 80b500af 034b7b44 1846fff7 feff0023  .....K{D.F.....#
+ 0010 184680bd 0a000000                    .F......        
+Contents of section .rodata:
+ 0000 48656c6c 6f20576f 726c6421 00        Hello World!.   
+Contents of section .comment:
+ 0000 00474343 3a202855 62756e74 75203130  .GCC: (Ubuntu 10
+ 0010 2e332e30 2d317562 756e7475 31292031  .3.0-1ubuntu1) 1
+ 0020 302e332e 3000                        0.3.0.          
+Contents of section .ARM.attributes:
+ 0000 41320000 00616561 62690001 28000000  A2...aeabi..(...
+ 0010 05372d41 00060a07 41080109 020a0412  .7-A....A.......
+ 0020 04140115 01170318 0119011a 021c011e  ................
+ 0030 062201                               .".             
