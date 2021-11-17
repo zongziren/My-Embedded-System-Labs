@@ -25,24 +25,24 @@
 - 2.下载 解压所需的各种程序的源代码
 
 ```
-$ wget http://ftpmirror.gnu.org/binutils/binutils-2.24.tar.gz
-$ wget http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz
-$ wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.17.2.tar.xz
-$ wget http://ftpmirror.gnu.org/glibc/glibc-2.20.tar.xz
-$ wget http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz
-$ wget http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.xz
-$ wget http://ftpmirror.gnu.org/mpc/mpc-1.0.2.tar.gz
-$ for f in *.tar*; do tar xf $f; done
+  $ wget http://ftpmirror.gnu.org/binutils/binutils-2.24.tar.gz
+  $ wget http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz
+  $ wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.17.2.tar.xz
+  $ wget http://ftpmirror.gnu.org/glibc/glibc-2.20.tar.xz
+  $ wget http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.xz
+  $ wget http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.xz
+  $ wget http://ftpmirror.gnu.org/mpc/mpc-1.0.2.tar.gz
+  $ for f in *.tar*; do tar xf $f; done
 ```
 
 - 3.硬连接
 
 ```
-$ cd gcc-4.9.2
-$ ln -s ../mpfr-3.1.2 mpfr
-$ ln -s ../gmp-6.0.0 gmp
-$ ln -s ../mpc-1.0.2 mpc
-$ cd ../
+  $ cd gcc-4.9.2
+  $ ln -s ../mpfr-3.1.2 mpfr
+  $ ln -s ../gmp-6.0.0 gmp
+  $ ln -s ../mpc-1.0.2 mpc
+  $ cd ../
 ```
 
 - 4.安装目录
@@ -67,61 +67,61 @@ $ cd ../
 - 6.Linux Kernel Headers
 
 ```
-$ cd linux-3.17.2
-$ make ARCH=arm64 INSTALL_HDR_PATH=/opt/cross/aarch64-linux headers_install
-$ cd ..
+  $ cd linux-3.17.2
+  $ make ARCH=arm64 INSTALL_HDR_PATH=/opt/cross/aarch64-linux headers_install
+  $ cd ..
 ```
 
 - 7.gcc 第一次编译
 
 ```
-$ mkdir -p build-gcc
-$ cd build-gcc
-$ ../gcc-4.9.2/configure --prefix=/opt/cross --target=aarch64-linux --enable-languages=c,c++ --disable-multilib
-$ make -j4 all-gcc
-$ make install-gcc
-$ cd ..
+  $ mkdir -p build-gcc
+  $ cd build-gcc
+  $ ../gcc-4.9.2/configure --prefix=/opt/cross --target=aarch64-linux --enable-languages=c,c++ --disable-multilib
+  $ make -j4 all-gcc
+  $ make install-gcc
+  $ cd ..
 ```
 
 - 8.glibc 编译
 
 ```
-$ mkdir -p build-glibc
-$ cd build-glibc
-$ ../glibc-2.20/configure --prefix=/opt/cross/aarch64-linux --build=$MACHTYPE --host=aarch64-linux --target=aarch64-linux --with-headers=/opt/cross/aarch64-linux/include --disable-multilib libc_cv_forced_unwind=yes
-$ make install-bootstrap-headers=yes install-headers
-$ make -j4 csu/subdir_lib
-$ install csu/crt1.o csu/crti.o csu/crtn.o /opt/cross/aarch64-linux/lib
-$ aarch64-linux-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/cross/aarch64-linux/lib/libc.so
-$ touch /opt/cross/aarch64-linux/include/gnu/stubs.h
-$ cd ..
+  $ mkdir -p build-glibc
+  $ cd build-glibc
+  $ ../glibc-2.20/configure --prefix=/opt/cross/aarch64-linux --build=$MACHTYPE --host=aarch64-linux --target=aarch64-linux --with-headers=/opt/cross/aarch64-linux/include --disable-multilib libc_cv_forced_unwind=yes
+  $ make install-bootstrap-headers=yes install-headers
+  $ make -j4 csu/subdir_lib
+  $ install csu/crt1.o csu/crti.o csu/crtn.o /opt/cross/aarch64-linux/lib
+  $ aarch64-linux-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o /opt/cross/aarch64-linux/lib/libc.so
+  $ touch /opt/cross/aarch64-linux/include/gnu/stubs.h
+  $ cd ..
 ```
 
 - 9.使用编译好的 glibc 第二次编译 gcc
 
 ```
-$ cd build-gcc
-$ make -j4 all-target-libgcc
-$ make install-target-libgcc
-$ cd ..
+  $ cd build-gcc
+  $ make -j4 all-target-libgcc
+  $ make install-target-libgcc
+  $ cd ..
 ```
 
 - 10.C 标准库编译
 
 ```
-$ cd build-glibc
-$ make -j4
-$ make install
-$ cd ..
+  $ cd build-glibc
+  $ make -j4
+  $ make install
+  $ cd ..
 ```
 
 - 11. 第三次编译 gcc
 
 ```
-cd build-gcc
-make -j 4
-make install
-cd …
+  cd build-gcc
+  make -j 4
+  make install
+  cd …
 ```
 
 ### 2.修改 gcc 的代码，使得 gcc –v 的输出中包含个人的信息。
