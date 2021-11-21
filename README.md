@@ -1,2 +1,3 @@
 # My-Embedded-System-Labs
-粽子的嵌入式课程实验
+
+存放粽子 USTC 嵌入式课程实验
