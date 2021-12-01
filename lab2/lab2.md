@@ -361,7 +361,7 @@ Contents of section .eh_frame:
   3. .comment 段是注释信息段，存放的是编译器版本等信息，此处分别是.GCC: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. 和 .GCC: (Ubuntu 10.3.0-1ubuntu1) 10.3.0.
   4. 剩下段用处不大，不做分析
 
-## 五、反思与总结
+## 四、反思与总结
 
 - 难点主要在附加的 step by step 编译 和 如何修改以输出个人信息
 - 实验本体难点在对于 objdump 和 readlf 的输出进行理解
